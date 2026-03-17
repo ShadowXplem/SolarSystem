@@ -173,41 +173,29 @@ function getInstanceFromMesh(mesh) {
 function updateUI() {
   if (!focusTarget) return;
 
-  // Determine which "CelestialBody" instance matches the current focusTarget mesh
-  // Note: Since Sun is a basic mesh and Planets are classes, we handle both
-  const targetName = focusTarget === Sun ? "Sun" : "Planet";
-  const distance = focusTarget.position.length(); // Distance from (0,0,0)
-  
+  const targetInstance = getInstanceFromMesh(focusTarget);
+  const targetName = targetInstance ? "Planet" : "Sun";
+  const distance = focusTarget.position.length();
+
   document.getElementById('info-name').innerText = targetName;
   document.getElementById('info-distance').innerText = distance.toFixed(2);
-
-  // If the target is one of your CelestialBody instances (Planet/Planet2)
-  // we can pull the velocity and eccentricity from them
-  let targetInstance = null;
-  if (focusTarget === Planet.mesh) targetInstance = Planet;
-  if (focusTarget === Planet2.mesh) targetInstance = Planet2;
-  if (focusTarget === Moon1.mesh) targetInstance = Moon1;
 
   if (targetInstance) {
     const speed = targetInstance.velocity.length();
     document.getElementById('info-velocity').innerText = speed.toFixed(3);
 
-    // Keep the velocity input synced with the selected body's speed (2 decimal places),
-    // but don't overwrite while the user is actively editing the input.
-    if (typeof velocityInput !== 'undefined') {
-      velocityInput.disabled = false;
-      if (document.activeElement !== velocityInput) {
-        velocityInput.value = speed.toFixed(2);
-      }
-    }
-
-    // Calculate Eccentricity using your OrbitCalcs module
     const eVec = OrbitCalcs.Eccentricity_Vector(targetInstance.mesh.position, targetInstance.velocity);
     document.getElementById('info-eccentricity').innerText = eVec.length().toFixed(4);
+
+    if (document.activeElement !== velocityInput) {
+      velocityInput.disabled = false;
+      velocityInput.value = speed.toFixed(2);
+    }
   } else {
-    // Reset if looking at the Sun
+    // Sun logic
     document.getElementById('info-velocity').innerText = "0.000";
     document.getElementById('info-eccentricity').innerText = "0.0000";
+    velocityInput.disabled = true;
   }
 }
 
@@ -248,7 +236,10 @@ function animate() {
 
   updateUI();
 
-  //console.log(OrbitCalcs.Eccentricity_Vector(Planet.position, planetVelocity).length());
+
+  if (focusTarget !== Sun) {
+    console.log(OrbitCalcs.Eccentricity_Vector(focusTarget.position, getInstanceFromMesh(focusTarget).velocity).length());
+  }
   controls.update();
   renderer.render(scene, camera);
 }

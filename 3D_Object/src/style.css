@@ -1,0 +1,42 @@
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.ui-container {
+  /* 1. This "lifts" the div so you can position it */
+  position: absolute; 
+
+  /* 2. This "pins" it to the top-left corner */
+  top: 20px;
+
+  left: 20px;
+
+  width: 5cm;
+  
+  background-color: rgba(255, 254, 254, 0.592);
+
+  border-radius: 0.2cm;
+
+  z-index: 10; 
+}
+
+.ui-info {
+  position: absolute;
+
+  top: 20px;
+
+  right: 20px;
+  width: 5cm;
+
+  background-color: rgba(255, 254, 254, 0.592);
+
+  border-radius: 0.2cm;
+
+  z-index: 10;
+}
+
+.div1 {
+  margin: 5%;
+}

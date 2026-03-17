@@ -1,0 +1,1 @@
+This project is a high-performance 3D simulation of celestial mechanics. While my primary focus is Full-Stack development (Laravel/React), I built this to challenge my ability to handle complex logic and real-time data processing.

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3d-object</title>
+</head>
+
+<body>
+
+  <canvas id="bg"></canvas>
+
+  <div class="ui-container">
+    <div class="div1">
+      <label>Planet1</label>
+      <div>
+        <label>Speed</label><br/>
+        <input type="number" id="velocity" step="0.1">
+      </div><br/>
+
+      <div>
+        <label>Time warp</label><br/>
+        <input type="number" id="time-warp">
+      </div>
+    </div>
+  </div>
+
+  <div class="ui-info">
+    <div>
+      <div>
+        <label>Name:</label> <span id="info-name">-</span><br/>
+        <label>Distance:</label> <span id="info-distance">-</span><br/>
+        <label>Velocity:</label> <span id="info-velocity">-</span><br/>
+        <label>Eccentricity:</label> <span id="info-eccentricity">-</span>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>
